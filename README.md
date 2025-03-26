@@ -1,61 +1,61 @@
-# Mamba 安装教程
+# Docker Mamba Installation Guide
 
-## 环境要求
-- **操作系统**：Linux
-- **硬件**：NVIDIA GPU
-- **软件**：
-  - PyTorch 1.12 及以上版本
-  - CUDA 11.6 及以上版本
+## System Requirements
+- **Operating System**: Linux
+- **Hardware**: NVIDIA GPU
+- **Software**:
+  - PyTorch 1.12 or higher
+  - CUDA 11.6 or higher
 
-## 安装步骤
+## Installation Steps
 
-### 1. 创建虚拟环境
-在终端中运行以下命令创建名为 `mamba` 的虚拟环境，并安装 Python 3.10：
+### 1. Create a Virtual Environment
+Run the following command in the terminal to create a virtual environment named `mamba` and install Python 3.10:
 ```bash
 conda create -n mamba python=3.10 -y
 ```
-**注意**：如果你是在服务器上第一次创建虚拟环境，需要先执行 `conda init`，然后关闭并重新打开终端页面，才能进入自己的环境。
+**Note**: If this is your first time creating a virtual environment on a server, you need to execute `source activate`, then close and reopen the terminal to enter your environment.
 
-### 2. 激活虚拟环境
-激活刚才创建的虚拟环境：
+### 2. Activate the Virtual Environment
+Activate the virtual environment you just created:
 ```bash
 conda activate mamba
 ```
 
-### 3. 安装 PyTorch
-根据你的 CUDA 版本安装对应的 PyTorch 版本。例如，如果你的 CUDA 版本是 11.8，可以安装 PyTorch 2.3.1：
+### 3. Install PyTorch
+Install the appropriate version of PyTorch based on your CUDA version. For example, if your CUDA version is 11.8, you can install PyTorch 2.3.1:
 ```bash
 conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=11.8 -c pytorch -c nvidia
 ```
-请根据你的实际 CUDA 版本选择合适的 PyTorch 版本。你可以通过运行 `nvcc -V` 来查看 CUDA 版本。
+Make sure to choose the correct PyTorch version based on your CUDA version. You can check your CUDA version by running `nvcc -V`.
 
-### 4. 安装依赖库
-由于直接通过 `pip install` 安装 `causal-conv1d` 和 `mamba-ssm` 可能会因网络问题失败，建议通过以下方式离线安装。
+### 4. Install Dependencies
+Since installing `causal-conv1d` and `mamba-ssm` via `pip install` may fail due to network issues, it’s recommended to install them offline.
 
-#### 安装 `causal-conv1d`
-1. 访问 [causal-conv1d 的 GitHub Releases 页面](https://github.com/Dao-AILab/causal-conv1d/releases/)。
-2. 找到与你的 CUDA 和 PyTorch 版本匹配的 `causal_conv1d` 安装包。例如，如果你的 CUDA 版本是 11.8，PyTorch 版本是 2.3，Python 版本是 3.10，你应该选择 `causal_conv1d-1.4.0+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl`。
-3. 使用 `wget` 下载对应的安装包：
+#### Install `causal-conv1d`
+1. Visit the [causal-conv1d GitHub Releases page](https://github.com/Dao-AILab/causal-conv1d/releases/).
+2. Find the `causal_conv1d` installation package that matches your CUDA and PyTorch versions. For example, if your CUDA version is 11.8, PyTorch version is 2.3, and Python version is 3.10, you can choose `causal_conv1d-1.4.0+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl`.
+3. Download the corresponding package using `wget`:
    ```bash
    wget https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.4.0/causal_conv1d-1.4.0+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
    ```
-4. 使用 `pip` 安装下载好的文件：
+4. Install the downloaded file using `pip`:
    ```bash
    pip install causal_conv1d-1.4.0+cu118torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
    ```
 
-#### 安装 `mamba-ssm`
-1. 访问 [mamba-ssm 的 GitHub Releases 页面](https://github.com/state-spaces/mamba/releases)。
-2. 找到与你的 CUDA 和 PyTorch 版本匹配的 `mamba_ssm` 安装包。例如，如果你的 CUDA 版本是 11.8，PyTorch 版本是 2.3，Python 版本是 3.10，你应该选择 `mamba_ssm-2.2.3+cu11torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl`。
-3. 使用 `wget` 下载对应的安装包：
+#### Install `mamba-ssm`
+1. Visit the [mamba-ssm GitHub Releases page](https://github.com/state-spaces/mamba/releases).
+2. Find the `mamba_ssm` installation package that matches your CUDA and PyTorch versions. For example, if your CUDA version is 11.8, PyTorch version is 2.3, and Python version is 3.10, you can choose `mamba_ssm-2.2.3+cu11torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl`.
+3. Download the corresponding package using `wget`:
    ```bash
    wget https://github.com/state-spaces/mamba/releases/download/v2.2.3/mamba_ssm-2.2.3+cu11torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
    ```
-4. 使用 `pip` 安装下载好的文件：
+4. Install the downloaded file using `pip`:
    ```bash
    pip install mamba_ssm-2.2.3+cu11torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
    ```
 
-## 注意事项
-- 确保安装的 `causal-conv1d` 和 `mamba-ssm` 的版本与你的 CUDA 和 PyTorch 版本相匹配。
-- 如果在安装过程中遇到问题，请检查你的网络连接，并确保你选择了正确的安装包版本。
+## Notes
+- Ensure that the versions of `causal-conv1d` and `mamba-ssm` you install match your CUDA and PyTorch versions.
+- If you encounter issues during installation, check your network connection and ensure you’ve selected the correct installation package version.
