@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openmpi-bin \
     vim \
     wget \
+    openssh-server \
     && rm -rf /var/lib/apt/list/* \
     && apt-get clean
 
